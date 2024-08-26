@@ -7,7 +7,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF65F94F-2FF
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlashCard", "FlashCard", "{82680ED8-12C3-418F-8293-A1F060E3E3B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCardHost", "src\FlashCard\FlashCardHost\FlashCardHost.csproj", "{93BC7933-3DDB-46ED-86AE-8DE310426A69}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FlashCard.Host", "src\FlashCard\FlashCardHost\FlashCard.Host.csproj", "{93BC7933-3DDB-46ED-86AE-8DE310426A69}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{6CDCB860-957B-462D-8DCE-D82DBCF2D86D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,6 +21,10 @@ Global
 		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CDCB860-957B-462D-8DCE-D82DBCF2D86D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CDCB860-957B-462D-8DCE-D82DBCF2D86D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CDCB860-957B-462D-8DCE-D82DBCF2D86D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CDCB860-957B-462D-8DCE-D82DBCF2D86D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

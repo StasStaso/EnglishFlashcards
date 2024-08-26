@@ -9,17 +9,17 @@ EXPOSE 8081
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
-COPY ["src/FlashCard/FlashCardHost/FlashCardHost.csproj", "src/FlashCard/FlashCardHost/"]
-RUN dotnet restore "./src/FlashCard/FlashCardHost/./FlashCardHost.csproj"
+COPY ["src/FlashCard/FlashCardHost/FlashCard.Host.csproj", "src/FlashCard/FlashCardHost/"]
+RUN dotnet restore "./src/FlashCard/FlashCardHost/./FlashCard.Host.csproj"
 COPY . .
 WORKDIR "/src/src/FlashCard/FlashCardHost"
-RUN dotnet build "./FlashCardHost.csproj" -c $BUILD_CONFIGURATION -o /app/build
+RUN dotnet build "./FlashCard.Host.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
 FROM build AS publish
 ARG BUILD_CONFIGURATION=Release
-RUN dotnet publish "./FlashCardHost.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "./FlashCard.Host.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-ENTRYPOINT ["dotnet", "FlashCardHost.dll"]
+ENTRYPOINT ["dotnet", "FlashCard.Host.dll"]
