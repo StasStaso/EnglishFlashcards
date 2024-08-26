@@ -3,9 +3,29 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34330.188
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{BF65F94F-2FF1-41DE-8447-49A2C8952BA4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FlashCard", "FlashCard", "{82680ED8-12C3-418F-8293-A1F060E3E3B7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FlashCardHost", "src\FlashCard\FlashCardHost\FlashCardHost.csproj", "{93BC7933-3DDB-46ED-86AE-8DE310426A69}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{93BC7933-3DDB-46ED-86AE-8DE310426A69}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{82680ED8-12C3-418F-8293-A1F060E3E3B7} = {BF65F94F-2FF1-41DE-8447-49A2C8952BA4}
+		{93BC7933-3DDB-46ED-86AE-8DE310426A69} = {82680ED8-12C3-418F-8293-A1F060E3E3B7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {94E3176C-718C-4458-94F0-A041C1A10B9C}
