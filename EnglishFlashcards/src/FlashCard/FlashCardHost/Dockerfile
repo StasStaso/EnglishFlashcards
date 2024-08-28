@@ -22,4 +22,5 @@ RUN dotnet publish "./FlashCard.Host.csproj" -c $BUILD_CONFIGURATION -o /app/pub
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
+COPY FlashCard/FlashCardHost/Data/WordsJson/full-word.json /app/full-word.json
 ENTRYPOINT ["dotnet", "FlashCard.Host.dll"]

@@ -1,9 +1,8 @@
-﻿using FlashCardHost.Models;
+﻿using FlashCard.Host.Models;
 
-namespace FlashCard.Host.Services.Abstractions
+namespace FlashCard.Host.Services.Abstractions;
+
+public interface IWordService
 {
-    public interface IWordService
-    {
-        Task<List<Word>> GetWordById();
-    }
+    Task<List<WordDbModel>> MapAndTranslateWordJsonToWordDb();
 }

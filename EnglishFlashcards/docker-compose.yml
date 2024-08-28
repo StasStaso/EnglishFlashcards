@@ -1,3 +1,14 @@
 version: '3.4'
 
+services:
+  FlashCardDb:
+    image: postgres
 
+  flashcard.host:
+    image: ${DOCKER_REGISTRY-}flashcardhost
+    build:
+      context: .
+      dockerfile: src/FlashCard/FlashCardHost/Dockerfile
+
+volumes:
+  postgres_FlashCardDb:    

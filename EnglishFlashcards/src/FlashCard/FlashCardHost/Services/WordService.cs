@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿using FlashCardHost.Models;
 using FlashCardHost.Services.Abstractions;
 
@@ -13,20 +14,30 @@ namespace FlashCardHost.Services
 ﻿using FlashCard.Host.Services.Abstractions;
 using FlashCardHost.Models;
 using System.Text.Json;
+=======
+﻿using FlashCard.Host.Models;
+using FlashCard.Host.Services.Abstractions;
+using Newtonsoft.Json;
+>>>>>>> 27dc157 (Update)
 
 namespace FlashCard.Host.Services
 {
-    public class WordService : IWordService
+    public class WordService(IWebHostEnvironment env) : IWordService
     {
-        public async Task<List<Word>> GetWordById() 
+        public async Task<List<WordJsonModel>> GetWord() 
         {
-            string filePath = "C:\\Users\\Admin\\Source\\Repos\\EnglishFlashcards\\EnglishFlashcards\\src\\FlashCard\\FlashCardHost\\Data\\WordsJson\\full-word.json";
-            string jsonString = await File.ReadAllTextAsync(filePath);
+            var path = Path.Combine(env.ContentRootPath, "Data", "WordsJson", "full-word.json");
 
-            List<Word> words = JsonSerializer.Deserialize<List<Word>>(jsonString);
+            var jsonContent = await File.ReadAllTextAsync(path);
 
+<<<<<<< HEAD
             return words;
 >>>>>>> ecaa71e (Update)
+=======
+            var allWords = JsonConvert.DeserializeObject<List<WordJsonModel>>(jsonContent);
+
+            return allWords ?? new List<WordJsonModel>();
+>>>>>>> 27dc157 (Update)
         }
     }
 }

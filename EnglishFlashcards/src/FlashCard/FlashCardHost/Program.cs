@@ -1,22 +1,24 @@
 using Amazon.Runtime;
 using Amazon.Translate;
-using FlashCard.Host.Services;
+using FlashCard.Host.Mappings;
 using FlashCard.Host.Services.Abstractions;
-using FlashCardHost.Services.TranslateService;
+using FlashCard.Host.Services.WordService;
+using FlashCard.Host.Services.TranslateService;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Services
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
-//
+//AutoMapper
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+//Amazon IAM
 builder.Services.AddSingleton<IAmazonTranslate>(sp =>
 {
     var accessKey = builder.Configuration["AWS:AccessKey"];
@@ -32,7 +34,6 @@ builder.Services.AddSingleton<IAmazonTranslate>(sp =>
     return new AmazonTranslateClient(credentials, config);
 });
 
-//
 
 var app = builder.Build();
 
