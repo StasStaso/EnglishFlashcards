@@ -6,10 +6,6 @@ namespace FlashCard.Host.Controllers
     [Route("api/word")]
     public class WordController : ControllerBase
     {
-        [HttpGet("/deserialize")]
-        public async Task<IActionResult> GetTranslateWord()
-        {
-            return Ok();
-        }
+
     }
 }
