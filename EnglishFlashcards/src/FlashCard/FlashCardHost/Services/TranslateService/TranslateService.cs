@@ -1,6 +1,5 @@
 ﻿using Amazon.Translate;
 using Amazon.Translate.Model;
-using FlashCard.Host.Services.Abstractions;
 
 
 namespace FlashCard.Host.Services.TranslateService

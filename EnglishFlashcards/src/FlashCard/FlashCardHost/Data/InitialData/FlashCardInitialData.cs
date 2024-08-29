@@ -1,7 +1,4 @@
-﻿using AutoMapper;
-using FlashCard.Host.Models;
-using FlashCard.Host.Services.Abstractions;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 
 namespace FlashCard.Host.Data.InitialData
 {
