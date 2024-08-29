@@ -9,10 +9,20 @@ namespace FlashCard.Host.Services.TranslateService
         : ITranslateService
     {
         private const string SourceLanguageCode = "en";
+        private const string TargetLanguageCode = "uk";
 
         public async Task<string> Translate(string word)
         {
-            return string.Empty;
+            var request = new TranslateTextRequest
+            {
+                Text = word,
+                SourceLanguageCode = SourceLanguageCode,
+                TargetLanguageCode = TargetLanguageCode
+            };
+
+            var response = await translate.TranslateTextAsync(request);
+
+            return response.TranslatedText;
         }
     }
 }
