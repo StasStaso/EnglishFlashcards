@@ -12,7 +12,7 @@ namespace FlashCard.Host.Services.TranslateService
 
         public async Task<string> Translate(string word)
         {
-            return string.Empty();
+            return string.Empty;
         }
     }
 }
