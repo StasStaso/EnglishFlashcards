@@ -13,8 +13,6 @@ namespace FlashCardHost.Controllers
         {
             var response = await translate.Translate(text);
 
-            var q = await wordService.MapAndTranslateWordJsonToWordDb();
-
             return Ok();
         }
     }

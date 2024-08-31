@@ -2,9 +2,24 @@
 
 namespace FlashCard.Host.Data.InitialData
 {
-    public class FlashCardInitialData(IWebHostEnvironment env, IMapper mapper, ITranslateService translateService)
+    public class FlashCardInitialData(
+        IWebHostEnvironment env, 
+        IMapper mapper, 
+        ITranslateService translateService,
+        ApplicationDbContext dbContext)
     {
-        public async Task<List<WordDbModel>> MapAndTranslateWordJsonToWordDb()
+        public async Task<bool> Handle() 
+        {
+            var listWords = await MapAndTranslateWordJsonToWordDb();
+
+            await dbContext.Words.AddRangeAsync(listWords);
+
+            await dbContext.SaveChangesAsync();
+
+            return true;
+        }
+
+        private async Task<List<WordDbModel>> MapAndTranslateWordJsonToWordDb()
         {
             var wordJsonModels = await DeserializeWordJsonModel();
             var wordDbModels = MapToWordDbModels(wordJsonModels);

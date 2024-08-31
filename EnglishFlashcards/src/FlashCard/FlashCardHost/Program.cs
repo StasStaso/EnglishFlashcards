@@ -4,6 +4,9 @@ using FlashCard.Host.Mappings;
 using FlashCard.Host.Services.Abstractions;
 using FlashCard.Host.Services.WordService;
 using FlashCard.Host.Services.TranslateService;
+using Microsoft.EntityFrameworkCore;
+using FlashCard.Host.Data;
+using FlashCard.Host.Data.InitialData;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,6 +20,10 @@ builder.Services.AddTransient<IWordService, WordService>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+//Database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
 //Amazon IAM
 builder.Services.AddSingleton<IAmazonTranslate>(sp =>
@@ -42,6 +49,27 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    using (var scope = app.Services.CreateScope()) 
+    {
+        var services = scope.ServiceProvider;
+
+        try
+        {
+            var env = services.GetRequiredService<IWebHostEnvironment>();
+            var mapper = services.GetRequiredService<IMapper>();
+            var translateService = services.GetRequiredService<ITranslateService>();
+            var dbContext = services.GetRequiredService<ApplicationDbContext>();
+
+            var flashCardInitialData = new FlashCardInitialData(env, mapper, translateService, dbContext);
+            await flashCardInitialData.Handle();
+        }
+        catch(Exception ex) 
+        {
+            var logger = services.GetRequiredService<ILogger<Program>>();
+            logger.LogError(ex, "An error occurred seeding the database.");
+        }
+    }
 }
 
 app.UseHttpsRedirection();
