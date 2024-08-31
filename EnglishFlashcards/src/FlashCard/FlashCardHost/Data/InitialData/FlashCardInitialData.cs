@@ -8,15 +8,13 @@ namespace FlashCard.Host.Data.InitialData
         ITranslateService translateService,
         ApplicationDbContext dbContext)
     {
-        public async Task<bool> Handle() 
+        public async Task Handle() 
         {
             var listWords = await MapAndTranslateWordJsonToWordDb();
 
             await dbContext.Words.AddRangeAsync(listWords);
 
             await dbContext.SaveChangesAsync();
-
-            return true;
         }
 
         private async Task<List<WordDbModel>> MapAndTranslateWordJsonToWordDb()

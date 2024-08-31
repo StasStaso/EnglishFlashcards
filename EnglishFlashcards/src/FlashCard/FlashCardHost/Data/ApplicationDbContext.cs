@@ -10,5 +10,7 @@ namespace FlashCard.Host.Data
         }
 
         public DbSet<WordDbModel> Words { get; set; }
+        public DbSet<StatusModel> Status { get; set; }
+        public DbSet<FlashCardModel> FlashCards { get; set; }
     }
 }
