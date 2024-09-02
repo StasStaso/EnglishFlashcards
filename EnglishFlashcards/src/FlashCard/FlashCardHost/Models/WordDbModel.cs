@@ -2,6 +2,7 @@
 {
     public class WordDbModel
     {
+        public int Id { get; set; }
         public int WordId { get; set; }
         public string Value { get; set; } = default!;
         public string TranslateValue { get; set; } = default!;
@@ -9,7 +10,6 @@
         public string Level { get; set; } = default!;
         public string PronunciationUkMp3 { get; set; } = default!;
         public string PhoneticsUk { get; set; } = default!;
-
-        public List<ExampleModel> Examples { get; set; } = new();
+        public List<string> Examples { get; set; } = new();
     }
 }

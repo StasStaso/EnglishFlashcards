@@ -1,5 +1,4 @@
-﻿using FlashCard.Host.Services.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FlashCardHost.Controllers
 {

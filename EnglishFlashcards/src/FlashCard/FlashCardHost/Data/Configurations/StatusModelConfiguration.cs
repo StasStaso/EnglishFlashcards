@@ -7,7 +7,7 @@ namespace FlashCard.Host.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<StatusModel> builder)
         {
-            builder.HasKey(x => x.Id);
+            builder.HasKey(x => x.StatusId);
         }
     }
 }
