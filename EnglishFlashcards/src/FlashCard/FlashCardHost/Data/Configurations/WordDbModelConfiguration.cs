@@ -8,6 +8,10 @@ namespace FlashCard.Host.Data.Configurations
         public void Configure(EntityTypeBuilder<WordDbModel> builder)
         {
             builder.HasKey(x => x.WordId);
+
+            builder.HasOne(w => w.Status)
+                .WithMany(s => s.Words)
+                .HasForeignKey(w => w.StatusId);
         }
     }
 }
