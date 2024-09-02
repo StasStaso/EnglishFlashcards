@@ -7,11 +7,7 @@ namespace FlashCard.Host.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<StatusModel> builder)
         {
-            builder.HasKey(x => x.StatusId);
-
-            builder.Property(x => x.StatusName)
-                .HasMaxLength(30)
-                .HasColumnName("Status");
+            builder.HasKey(x => x.Id);
         }
     }
 }

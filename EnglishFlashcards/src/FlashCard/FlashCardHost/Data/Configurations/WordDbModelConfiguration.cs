@@ -9,9 +9,10 @@ namespace FlashCard.Host.Data.Configurations
         {
             builder.HasKey(x => x.WordId);
 
-            builder.HasOne(w => w.Status)
-                .WithMany()
-                .HasForeignKey(w => w.StatusId);
+            builder.HasMany(w => w.Examples)
+                .WithOne(e => e.Word)
+                .HasForeignKey(w => w.WordId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

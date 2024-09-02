@@ -9,13 +9,9 @@ namespace FlashCard.Host.Data.Configurations
         {
             builder.HasKey(fc => fc.Id);
 
-            builder.HasOne(fc => fc.Word)
+            builder.HasOne(f => f.Status)
                 .WithMany()
-                .HasForeignKey(fc => fc.WordId);
-
-            builder.HasOne(fc => fc.Status)
-                .WithMany()
-                .HasForeignKey(fc => fc.StatusId);
+                .HasForeignKey(f => f.StatusId);
         }
     }
 }

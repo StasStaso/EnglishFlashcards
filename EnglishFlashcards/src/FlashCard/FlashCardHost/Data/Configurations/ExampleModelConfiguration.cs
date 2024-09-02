@@ -7,11 +7,12 @@ namespace FlashCard.Host.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ExampleModel> builder)
         {
-            builder.HasKey(e => e.Id);
+            builder.HasKey(x => x.Id);
 
             builder.HasOne(e => e.Word)
                 .WithMany(w => w.Examples)
-                .HasForeignKey(e => e.WordId);
+                .HasForeignKey(e => e.WordId)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }
