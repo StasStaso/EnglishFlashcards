@@ -7,7 +7,7 @@ namespace FlashCard.Host.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<FlashCardModel> builder)
         {
-            builder.HasKey(fc => new { fc.WordId, fc.StatusId });
+            builder.HasKey(fc => fc.Id);
 
             builder.HasOne(fc => fc.Word)
                 .WithMany()
@@ -16,10 +16,6 @@ namespace FlashCard.Host.Data.Configurations
             builder.HasOne(fc => fc.Status)
                 .WithMany()
                 .HasForeignKey(fc => fc.StatusId);
-
-            builder.HasKey(x => x.WordId);
-
-            builder.HasKey(x => x.StatusId);
         }
     }
 }

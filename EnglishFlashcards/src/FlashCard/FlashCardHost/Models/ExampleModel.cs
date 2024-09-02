@@ -1,12 +1,11 @@
 ﻿namespace FlashCard.Host.Models
 {
-    public class FlashCardModel
+    public class ExampleModel
     {
         public int Id { get; set; }
         public int WordId { get; set; }
-        public int StatusId { get; set; }
+        public string ExampleText { get; set; } = default!;
 
         public WordDbModel Word { get; set; } = default!;
-        public StatusModel Status { get; set; } = default!;
     }
 }

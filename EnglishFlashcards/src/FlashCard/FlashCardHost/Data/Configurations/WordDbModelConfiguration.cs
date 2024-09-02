@@ -10,7 +10,7 @@ namespace FlashCard.Host.Data.Configurations
             builder.HasKey(x => x.WordId);
 
             builder.HasOne(w => w.Status)
-                .WithMany(s => s.Words)
+                .WithMany()
                 .HasForeignKey(w => w.StatusId);
         }
     }

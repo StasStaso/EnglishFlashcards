@@ -11,8 +11,7 @@ namespace FlashCard.Host.Data.Configurations
 
             builder.Property(x => x.StatusName)
                 .HasMaxLength(30)
-                .HasColumnName("Status")
-                .IsRequired();
+                .HasColumnName("Status");
         }
     }
 }
