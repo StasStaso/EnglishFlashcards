@@ -1,9 +1,11 @@
 using Amazon.Runtime;
 using Amazon.Translate;
+using FlashCard.Host.Data;
+using FlashCard.Host.Data.InitialData;
 using FlashCard.Host.Mappings;
-using FlashCard.Host.Services.Abstractions;
-using FlashCard.Host.Services.WordService;
 using FlashCard.Host.Services.TranslateService;
+using FlashCard.Host.Services.WordService;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,8 +17,14 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
+builder.Services.AddScoped<WordInitialData>();
+
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+//Database
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseNpgsql(builder.Configuration.GetConnectionString("Database")));
 
 //Amazon IAM
 builder.Services.AddSingleton<IAmazonTranslate>(sp =>
@@ -25,7 +33,7 @@ builder.Services.AddSingleton<IAmazonTranslate>(sp =>
     var secretKey = builder.Configuration["AWS:SecretKey"];
 
     var credentials = new BasicAWSCredentials(accessKey, secretKey);
-    
+
     var config = new AmazonTranslateConfig
     {
         RegionEndpoint = Amazon.RegionEndpoint.EUNorth1
@@ -42,6 +50,15 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+}
+
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+
+    var initialData = services.GetRequiredService<WordInitialData>();
+
+    await initialData.Handle();
 }
 
 app.UseHttpsRedirection();

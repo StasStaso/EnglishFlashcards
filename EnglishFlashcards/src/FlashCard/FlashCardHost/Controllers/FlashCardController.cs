@@ -1,5 +1,4 @@
-﻿using FlashCard.Host.Services.Abstractions;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FlashCardHost.Controllers
 {
@@ -12,8 +11,6 @@ namespace FlashCardHost.Controllers
         public async Task<IActionResult> GetTranslateWord(string text) 
         {
             var response = await translate.Translate(text);
-
-            var q = await wordService.MapAndTranslateWordJsonToWordDb();
 
             return Ok();
         }
