@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace FlashCard.Host.Data.InitialData
 {
@@ -10,11 +11,14 @@ namespace FlashCard.Host.Data.InitialData
     {
         public async Task Handle() 
         {
-            var listWords = await MapAndTranslateWordJsonToWordDb();
+            if (!await dbContext.Words.AnyAsync())
+            {
+                var listWords = await MapAndTranslateWordJsonToWordDb();
 
-            await dbContext.Words.AddRangeAsync(listWords);
+                await dbContext.Words.AddRangeAsync(listWords);
 
-            await dbContext.SaveChangesAsync();
+                await dbContext.SaveChangesAsync();
+            }
         }
 
         private async Task<List<WordDbModel>> MapAndTranslateWordJsonToWordDb()
