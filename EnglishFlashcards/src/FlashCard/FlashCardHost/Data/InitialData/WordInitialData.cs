@@ -3,7 +3,7 @@ using Newtonsoft.Json;
 
 namespace FlashCard.Host.Data.InitialData
 {
-    public class FlashCardInitialData(
+    public class WordInitialData(
         IWebHostEnvironment env, 
         IMapper mapper, 
         ITranslateService translateService,

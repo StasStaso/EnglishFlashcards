@@ -17,7 +17,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
-builder.Services.AddScoped<FlashCardInitialData>();
+builder.Services.AddScoped<WordInitialData>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -56,7 +56,7 @@ using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var initialData = services.GetRequiredService<FlashCardInitialData>();
+    var initialData = services.GetRequiredService<WordInitialData>();
 
     await initialData.Handle();
 }
