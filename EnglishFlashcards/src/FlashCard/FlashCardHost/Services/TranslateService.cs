@@ -2,7 +2,7 @@
 using Amazon.Translate.Model;
 
 
-namespace FlashCard.Host.Services.TranslateService
+namespace FlashCard.Host.Services
 {
     public class TranslateService(IAmazonTranslate translate)
         : ITranslateService

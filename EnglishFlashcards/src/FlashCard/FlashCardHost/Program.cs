@@ -3,8 +3,9 @@ using Amazon.Translate;
 using FlashCard.Host.Data;
 using FlashCard.Host.Data.InitialData;
 using FlashCard.Host.Mappings;
-using FlashCard.Host.Services.TranslateService;
-using FlashCard.Host.Services.WordService;
+using FlashCard.Host.Repositories;
+using FlashCard.Host.Repositories.Abstractions;
+using FlashCard.Host.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,10 +15,14 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Services
+builder.Services.AddTransient<IWordRepository, WordRepository>();
+
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
 builder.Services.AddScoped<WordInitialData>();
+builder.Services.AddScoped<StatusInitialData>();
+builder.Services.AddScoped<FlashCardInitialData>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -52,13 +57,18 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//InitData
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var initialData = services.GetRequiredService<WordInitialData>();
+    var wordInitialData = services.GetRequiredService<WordInitialData>();
+    var statusInitalData = services.GetRequiredService<StatusInitialData>();
+    var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
 
-    await initialData.Handle();
+    await statusInitalData.Handle();
+    await wordInitialData.Handle();
+    await flashCardInitalData.Handle();
 }
 
 app.UseHttpsRedirection();

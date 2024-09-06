@@ -2,4 +2,5 @@
 
 public interface IWordService
 {
+    Task<List<WordDbModel>> GetAll(int pageSize, int pageIndex);
 }
