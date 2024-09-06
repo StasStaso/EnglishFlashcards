@@ -18,6 +18,7 @@ builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
 builder.Services.AddScoped<WordInitialData>();
+builder.Services.AddScoped<StatusInitialData>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -52,13 +53,16 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+//InitData
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var initialData = services.GetRequiredService<WordInitialData>();
+    var wordInitialData = services.GetRequiredService<WordInitialData>();
+    var statusInitalData = services.GetRequiredService<StatusInitialData>();
 
-    await initialData.Handle();
+    await statusInitalData.Handle();
+    await wordInitialData.Handle();
 }
 
 app.UseHttpsRedirection();

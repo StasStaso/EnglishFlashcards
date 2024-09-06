@@ -16,7 +16,6 @@ namespace FlashCard.Host.Data.InitialData
                 var listWords = await MapAndTranslateWordJsonToWordDb();
 
                 await dbContext.Words.AddRangeAsync(listWords);
-
                 await dbContext.SaveChangesAsync();
             }
         }
