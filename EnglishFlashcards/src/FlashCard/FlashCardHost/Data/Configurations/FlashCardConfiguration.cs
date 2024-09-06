@@ -13,8 +13,6 @@ namespace FlashCard.Host.Data.Configurations
                 .WithMany()
                 .HasForeignKey(f => f.StatusId);
 
-            builder.Property(f => f.StatusId).HasDefaultValue(1);
-
             builder.HasOne(f => f.Word)
                 .WithMany()
                 .HasForeignKey(x => x.WordId);
