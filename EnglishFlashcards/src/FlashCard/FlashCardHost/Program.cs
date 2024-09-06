@@ -3,8 +3,9 @@ using Amazon.Translate;
 using FlashCard.Host.Data;
 using FlashCard.Host.Data.InitialData;
 using FlashCard.Host.Mappings;
-using FlashCard.Host.Services.TranslateService;
-using FlashCard.Host.Services.WordService;
+using FlashCard.Host.Repositories;
+using FlashCard.Host.Repositories.Abstractions;
+using FlashCard.Host.Services;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -14,6 +15,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Services
+builder.Services.AddTransient<IWordRepository, WordRepository>();
+
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
