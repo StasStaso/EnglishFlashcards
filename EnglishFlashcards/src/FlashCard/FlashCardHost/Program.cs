@@ -19,6 +19,7 @@ builder.Services.AddTransient<IWordService, WordService>();
 
 builder.Services.AddScoped<WordInitialData>();
 builder.Services.AddScoped<StatusInitialData>();
+builder.Services.AddScoped<FlashCardInitialData>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -60,9 +61,11 @@ using (var scope = app.Services.CreateScope())
 
     var wordInitialData = services.GetRequiredService<WordInitialData>();
     var statusInitalData = services.GetRequiredService<StatusInitialData>();
+    var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
 
     await statusInitalData.Handle();
     await wordInitialData.Handle();
+    await flashCardInitalData.Handle();
 }
 
 app.UseHttpsRedirection();
