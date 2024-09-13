@@ -13,5 +13,12 @@ namespace FlashCard.Host.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("/GetById{id}")]
+        public async Task<IActionResult> GetWordById(int id) 
+        {
+            var response = await wordService.GetWordById(id); 
+            return Ok(response);
+        }
     }
 }

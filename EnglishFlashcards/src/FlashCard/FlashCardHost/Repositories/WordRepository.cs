@@ -17,9 +17,16 @@ namespace FlashCard.Host.Repositories
             return query;
         }
 
-        public Task<WordDbModel> GetById(int id)
+        public async Task<WordDbModel> GetById(int id)
         {
-            throw new NotImplementedException();
+            var query = await dbContext.Words.FirstOrDefaultAsync(x => x.WordId == id);
+
+            if (query == null) 
+            {
+                return new WordDbModel();
+            }
+
+            return query;
         }
 
         public Task<WordDbModel> GetByName(string name)

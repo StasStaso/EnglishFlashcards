@@ -11,5 +11,11 @@ namespace FlashCard.Host.Services
 
             return result;
         }
+
+        public async Task<WordDbModel> GetWordById(int id) 
+        {
+            var result = await wordRepository.GetById(id);
+            return result;
+        }
     }
 }
