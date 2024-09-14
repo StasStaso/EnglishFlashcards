@@ -7,12 +7,12 @@ namespace FlashCardHost.Controllers
     public class FlashCardController(
         ITranslateService translate, IWordService wordService) : ControllerBase
     {
-        [HttpGet("/generate")]
+        [HttpGet("/GetTranslateWord")]
         public async Task<IActionResult> GetTranslateWord(string text) 
         {
             var response = await translate.Translate(text);
 
-            return Ok();
+            return Ok(response);
         }
     }
 }

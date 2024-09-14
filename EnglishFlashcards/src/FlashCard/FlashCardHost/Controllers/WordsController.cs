@@ -20,5 +20,12 @@ namespace FlashCard.Host.Controllers
             var response = await wordService.GetWordById(id); 
             return Ok(response);
         }
+
+        [HttpGet("/GetByName/{name}")]
+        public async Task<IActionResult> GetWordsByName(string name) 
+        {
+            var response = await wordService.GetWordsByName(name);
+            return Ok(response);
+        }
     }
 }
