@@ -29,9 +29,13 @@ namespace FlashCard.Host.Repositories
             return query;
         }
 
-        public Task<WordDbModel> GetByName(string name)
+        public Task<List<WordDbModel>> GetByName(string name)
         {
-            throw new NotImplementedException();
+            var query = dbContext.Words
+                .Where(x => x.Value.Contains(name))
+                .ToListAsync();
+
+            return query;
         }
     }
 }
