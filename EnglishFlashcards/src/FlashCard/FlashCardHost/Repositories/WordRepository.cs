@@ -17,14 +17,38 @@ namespace FlashCard.Host.Repositories
             return query;
         }
 
-        public Task<WordDbModel> GetById(int id)
+        public async Task<WordDbModel> GetById(int id)
         {
-            throw new NotImplementedException();
+            var query = await dbContext.Words.FirstOrDefaultAsync(x => x.WordId == id);
+
+            if (query == null) 
+            {
+                return new WordDbModel();
+            }
+
+            return query;
         }
 
-        public Task<WordDbModel> GetByName(string name)
+        public Task<List<WordDbModel>> GetByName(string name)
         {
-            throw new NotImplementedException();
+            var query = dbContext.Words
+                .Where(x => x.Value.Contains(name))
+                .ToListAsync();
+
+            return query;
+        }
+
+        public async Task<WordDbModel> AddNewWord(WordDbModel word) 
+        {
+            if(word.Value == null) 
+            {
+
+            }
+
+            await dbContext.Words.AddAsync(word);
+            await dbContext.SaveChangesAsync();
+            
+            return word;
         }
     }
 }
