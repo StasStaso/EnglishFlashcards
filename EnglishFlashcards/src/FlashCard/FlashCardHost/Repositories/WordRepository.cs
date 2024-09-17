@@ -37,5 +37,18 @@ namespace FlashCard.Host.Repositories
 
             return query;
         }
+
+        public async Task<WordDbModel> AddNewWord(WordDbModel word) 
+        {
+            if(word.Value == null) 
+            {
+
+            }
+
+            await dbContext.Words.AddAsync(word);
+            await dbContext.SaveChangesAsync();
+            
+            return word;
+        }
     }
 }
