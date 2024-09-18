@@ -27,5 +27,12 @@ namespace FlashCard.Host.Controllers
             var response = await wordService.GetWordsByName(name);
             return Ok(response);
         }
+
+        [HttpPost("/AddNewWord")]
+        public async Task<IActionResult> AddNewWord(WordDbModel word) 
+        {
+            var response = await wordService.AddNewWord(word);
+            return Ok(response);
+        }
     }
 }

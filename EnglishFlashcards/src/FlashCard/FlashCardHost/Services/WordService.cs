@@ -22,5 +22,11 @@ namespace FlashCard.Host.Services
             var result = await wordRepository.GetByName(name);
             return result;
         }
+
+        public async Task<int> AddNewWord(WordDbModel word) 
+        {
+            var result = await wordRepository.AddNewWord(word);
+            return result;
+        }
     }
 }
