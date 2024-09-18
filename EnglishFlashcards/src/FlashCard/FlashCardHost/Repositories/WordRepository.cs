@@ -38,15 +38,19 @@ namespace FlashCard.Host.Repositories
             return query;
         }
 
-        public async Task<int> AddNewWord(WordDbModel word) 
+        public async Task<int> AddNewWord(string value, string translateValue, string type, string level,
+            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples) 
         {
-            var existingId = await dbContext.Words
-                .FirstOrDefaultAsync(w => w.Id == word.Id);
-
-            if (existingId is not null)
+            var word = new WordDbModel
             {
-                throw new ArgumentException($"Word with Id {word.Id} already exists.");
-            }
+                Value = value,
+                TranslateValue = translateValue,
+                Type = type,
+                Level = level,
+                PronunciationUkMp3 = pronunciationUkMp3,
+                PhoneticsUk = phoneticsUk,
+                Examples = examples
+            };
 
             await dbContext.Words.AddAsync(word);
             await dbContext.SaveChangesAsync();

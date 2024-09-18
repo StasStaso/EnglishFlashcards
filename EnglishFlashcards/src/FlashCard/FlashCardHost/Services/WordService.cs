@@ -23,9 +23,12 @@ namespace FlashCard.Host.Services
             return result;
         }
 
-        public async Task<int> AddNewWord(WordDbModel word) 
+        public async Task<int> AddNewWord(string value, string translateValue, string type, string level,
+            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples)
         {
-            var result = await wordRepository.AddNewWord(word);
+            var result = await wordRepository.AddNewWord(value, translateValue, type,
+                level, pronunciationUkMp3, phoneticsUk, examples);
+
             return result;
         }
     }
