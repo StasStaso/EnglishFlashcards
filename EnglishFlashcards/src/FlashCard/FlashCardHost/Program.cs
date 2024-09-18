@@ -7,8 +7,12 @@ using FlashCard.Host.Repositories;
 using FlashCard.Host.Repositories.Abstractions;
 using FlashCard.Host.Services;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var assembly = typeof(Program).Assembly;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -23,6 +27,9 @@ builder.Services.AddTransient<IWordService, WordService>();
 builder.Services.AddScoped<WordInitialData>();
 builder.Services.AddScoped<StatusInitialData>();
 builder.Services.AddScoped<FlashCardInitialData>();
+
+//Validators
+builder.Services.AddValidatorsFromAssembly(assembly);
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
