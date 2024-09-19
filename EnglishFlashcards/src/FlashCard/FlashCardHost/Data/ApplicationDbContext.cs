@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlashCard.Host.Data.Configurations;
+using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 namespace FlashCard.Host.Data
@@ -17,9 +18,9 @@ namespace FlashCard.Host.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.ApplyConfiguration(new FlashCardConfiguration());
+            modelBuilder.ApplyConfiguration(new StatusModelConfiguration());
+            modelBuilder.ApplyConfiguration(new WordDbModelConfiguration());
         }
     }
 }

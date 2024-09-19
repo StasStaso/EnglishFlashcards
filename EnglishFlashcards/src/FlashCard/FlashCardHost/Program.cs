@@ -63,14 +63,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//InitData
+////InitData
 //using (var scope = app.Services.CreateScope())
 //{
 //    var services = scope.ServiceProvider;
 
 //    var wordInitialData = services.GetRequiredService<WordInitialData>();
-//    //var statusInitalData = services.GetRequiredService<StatusInitialData>();
-//    //var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
+//    var statusInitalData = services.GetRequiredService<StatusInitialData>();
+//    var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
 
 //    await statusInitalData.Handle();
 //    await wordInitialData.Handle();

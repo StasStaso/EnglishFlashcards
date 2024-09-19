@@ -42,7 +42,7 @@ namespace FlashCard.Host.Data.Migrations
 
                     b.HasIndex("WordId");
 
-                    b.ToTable("FlashCards");
+                    b.ToTable("FlashCards", (string)null);
                 });
 
             modelBuilder.Entity("FlashCard.Host.Models.StatusModel", b =>
@@ -60,7 +60,7 @@ namespace FlashCard.Host.Data.Migrations
 
                     b.HasKey("StatusId");
 
-                    b.ToTable("Status");
+                    b.ToTable("Status", (string)null);
                 });
 
             modelBuilder.Entity("FlashCard.Host.Models.WordDbModel", b =>
@@ -97,7 +97,7 @@ namespace FlashCard.Host.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Words");
+                    b.ToTable("Words", (string)null);
                 });
 
             modelBuilder.Entity("FlashCard.Host.Models.FlashCardModel", b =>
