@@ -7,22 +7,28 @@ using FlashCard.Host.Repositories;
 using FlashCard.Host.Repositories.Abstractions;
 using FlashCard.Host.Services;
 using Microsoft.EntityFrameworkCore;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
+
+var assembly = typeof(Program).Assembly;
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 //Services
+builder.Services.AddTransient<WordInitialData>();
+builder.Services.AddTransient<StatusInitialData>();
+builder.Services.AddTransient<FlashCardInitialData>();
+
 builder.Services.AddTransient<IWordRepository, WordRepository>();
 
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
-builder.Services.AddScoped<WordInitialData>();
-builder.Services.AddScoped<StatusInitialData>();
-builder.Services.AddScoped<FlashCardInitialData>();
+//Validators
+builder.Services.AddValidatorsFromAssembly(assembly);
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
@@ -57,18 +63,26 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-//InitData
+////InitData
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
 
-    var wordInitialData = services.GetRequiredService<WordInitialData>();
-    var statusInitalData = services.GetRequiredService<StatusInitialData>();
-    var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
+    try
+    {
+        var wordInitialData = services.GetRequiredService<WordInitialData>();
+        var statusInitalData = services.GetRequiredService<StatusInitialData>();
+        var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
 
-    await statusInitalData.Handle();
-    await wordInitialData.Handle();
-    await flashCardInitalData.Handle();
+        await statusInitalData.Handle();
+        await wordInitialData.Handle();
+        await flashCardInitalData.Handle();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
 }
 
 app.UseHttpsRedirection();

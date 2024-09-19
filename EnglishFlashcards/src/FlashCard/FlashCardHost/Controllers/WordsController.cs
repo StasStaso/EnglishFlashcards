@@ -27,5 +27,15 @@ namespace FlashCard.Host.Controllers
             var response = await wordService.GetWordsByName(name);
             return Ok(response);
         }
+
+        [HttpPost("/AddNewWord")]
+        public async Task<IActionResult> AddNewWord(string value, string translateValue, string type, string level,
+            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples)
+        {
+            var response = await wordService.AddNewWord(value, translateValue, type,
+                level, pronunciationUkMp3, phoneticsUk, examples);
+
+            return Ok(response);
+        }
     }
 }

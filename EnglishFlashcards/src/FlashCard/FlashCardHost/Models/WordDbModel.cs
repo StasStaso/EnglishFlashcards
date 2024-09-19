@@ -3,7 +3,6 @@
     public class WordDbModel
     {
         public int Id { get; set; }
-        public int WordId { get; set; }
         public string Value { get; set; } = default!;
         public string TranslateValue { get; set; } = default!;
         public string? Type { get; set; }

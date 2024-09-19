@@ -9,7 +9,7 @@ namespace FlashCard.Host.Repositories
         public async Task<List<WordDbModel>> GetAll(int pageSize, int pageIndex)
         {
             var query = await dbContext.Words
-                .OrderBy(x => x.WordId)
+                .OrderBy(x => x.Id)
                 .Skip(pageSize * pageIndex)
                 .Take(pageSize)
                 .ToListAsync();
@@ -19,7 +19,7 @@ namespace FlashCard.Host.Repositories
 
         public async Task<WordDbModel> GetById(int id)
         {
-            var query = await dbContext.Words.FirstOrDefaultAsync(x => x.WordId == id);
+            var query = await dbContext.Words.FirstOrDefaultAsync(x => x.Id == id);
 
             if (query == null) 
             {
@@ -29,26 +29,33 @@ namespace FlashCard.Host.Repositories
             return query;
         }
 
-        public Task<List<WordDbModel>> GetByName(string name)
+        public async Task<List<WordDbModel>> GetByName(string name)
         {
-            var query = dbContext.Words
+            var query = await dbContext.Words
                 .Where(x => x.Value.Contains(name))
                 .ToListAsync();
 
             return query;
         }
 
-        public async Task<WordDbModel> AddNewWord(WordDbModel word) 
+        public async Task<int> AddNewWord(string value, string translateValue, string type, string level,
+            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples) 
         {
-            if(word.Value == null) 
+            var word = new WordDbModel
             {
-
-            }
+                Value = value,
+                TranslateValue = translateValue,
+                Type = type,
+                Level = level,
+                PronunciationUkMp3 = pronunciationUkMp3,
+                PhoneticsUk = phoneticsUk,
+                Examples = examples
+            };
 
             await dbContext.Words.AddAsync(word);
             await dbContext.SaveChangesAsync();
             
-            return word;
+            return word.Id;
         }
     }
 }
