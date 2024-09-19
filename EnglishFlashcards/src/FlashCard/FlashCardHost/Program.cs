@@ -64,18 +64,26 @@ if (app.Environment.IsDevelopment())
 }
 
 ////InitData
-//using (var scope = app.Services.CreateScope())
-//{
-//    var services = scope.ServiceProvider;
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
 
-//    var wordInitialData = services.GetRequiredService<WordInitialData>();
-//    var statusInitalData = services.GetRequiredService<StatusInitialData>();
-//    var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
+    try
+    {
+        var wordInitialData = services.GetRequiredService<WordInitialData>();
+        var statusInitalData = services.GetRequiredService<StatusInitialData>();
+        var flashCardInitalData = services.GetRequiredService<FlashCardInitialData>();
 
-//    await statusInitalData.Handle();
-//    await wordInitialData.Handle();
-//    await flashCardInitalData.Handle();
-//}
+        await statusInitalData.Handle();
+        await wordInitialData.Handle();
+        await flashCardInitalData.Handle();
+    }
+    catch (Exception ex)
+    {
+        var logger = services.GetRequiredService<ILogger<Program>>();
+        logger.LogError(ex, "An error occurred creating the DB.");
+    }
+}
 
 app.UseHttpsRedirection();
 
