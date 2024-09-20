@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using FlashCard.Host.Exceptions;
+using Microsoft.EntityFrameworkCore;
 
 namespace FlashCard.Host.Repositories
 {
@@ -19,9 +20,9 @@ namespace FlashCard.Host.Repositories
         {
             var query = await dbContext.Words.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (query == null)
+            if (query is null)
             {
-                return new WordDbModel();
+                throw new WordNotFoundException(id);
             }
 
             return query;
@@ -32,6 +33,11 @@ namespace FlashCard.Host.Repositories
             var query = await dbContext.Words
                 .Where(x => x.Value.Contains(name))
                 .ToListAsync();
+
+            if (query is null) 
+            {
+                throw new WordNotFoundException(name);
+            }
 
             return query;
         }
@@ -61,9 +67,9 @@ namespace FlashCard.Host.Repositories
         {
             var word = await dbContext.Words.FirstOrDefaultAsync(x => x.Id == id);
 
-            if (word == null)
+            if (word is null)
             {
-
+                throw new WordNotFoundException(id);
             }
 
             word.Value = value;
@@ -86,7 +92,7 @@ namespace FlashCard.Host.Repositories
 
             if(word is null) 
             {
-                return false;
+                throw new WordNotFoundException(id);
             }
 
             dbContext.Remove(word);
