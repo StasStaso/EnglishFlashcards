@@ -1,13 +1,6 @@
 using Amazon.Runtime;
 using Amazon.Translate;
-using FlashCard.Host.Data;
-using FlashCard.Host.Data.InitialData;
-using FlashCard.Host.Mappings;
-using FlashCard.Host.Repositories;
-using FlashCard.Host.Repositories.Abstractions;
-using FlashCard.Host.Services;
 using Microsoft.EntityFrameworkCore;
-using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,7 +21,8 @@ builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
 //Validators
-builder.Services.AddValidatorsFromAssembly(assembly);
+
+//builder.Services.AddValidatorsFromAssembly(assembly);
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));

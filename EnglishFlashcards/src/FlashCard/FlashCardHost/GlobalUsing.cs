@@ -1,3 +1,9 @@
 ﻿global using AutoMapper;
 global using FlashCard.Host.Models;
 global using FlashCard.Host.Services.Abstractions;
+global using FlashCard.Host.Data;
+global using FlashCard.Host.Repositories.Abstractions;
+global using FlashCard.Host.Data.InitialData;
+global using FlashCard.Host.Mappings;
+global using FlashCard.Host.Repositories;
+global using FlashCard.Host.Services;

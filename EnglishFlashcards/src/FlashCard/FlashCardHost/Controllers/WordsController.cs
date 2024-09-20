@@ -37,5 +37,22 @@ namespace FlashCard.Host.Controllers
 
             return Ok(response);
         }
+
+        [HttpPut("/UpdateWord")]
+        public async Task<IActionResult> UpdateWord(int id, string value, string translateValue, string type, string level,
+            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples)
+        {
+            var response = await wordService.UpdateWord(id, value, translateValue, type,
+                level, pronunciationUkMp3, phoneticsUk, examples);
+
+            return Ok(response);
+        }
+
+        [HttpDelete("DeleteWord/{id}")]
+        public async Task<IActionResult> DeleteWord(int id) 
+        {
+            var response = await wordService.DeleteWord(id);            
+            return Ok(response);
+        }
     }
 }
