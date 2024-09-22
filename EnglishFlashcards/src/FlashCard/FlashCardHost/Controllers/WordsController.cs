@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FlashCard.Host.Dtos;
+using Microsoft.AspNetCore.Mvc;
 
 namespace FlashCard.Host.Controllers
 {
@@ -15,26 +16,55 @@ namespace FlashCard.Host.Controllers
         }
 
         [HttpGet("/GetById/{id}")]
-        public async Task<IActionResult> GetWordById(int id) 
+        public async Task<IActionResult> GetWordById(int id)
         {
-            var response = await wordService.GetWordById(id); 
+            var response = await wordService.GetWordById(id);
             return Ok(response);
         }
 
         [HttpGet("/GetByName/{name}")]
-        public async Task<IActionResult> GetWordsByName(string name) 
+        public async Task<IActionResult> GetWordsByName(string name)
         {
             var response = await wordService.GetWordsByName(name);
             return Ok(response);
         }
 
         [HttpPost("/AddNewWord")]
-        public async Task<IActionResult> AddNewWord(string value, string translateValue, string type, string level,
-            string? pronunciationUkMp3, string? phoneticsUk, List<string> examples)
+        public async Task<IActionResult> AddNewWord([FromBody] AddNewWordDto addNewWordDto)
         {
-            var response = await wordService.AddNewWord(value, translateValue, type,
-                level, pronunciationUkMp3, phoneticsUk, examples);
+            var response = await wordService.AddNewWord(
+                addNewWordDto.Value,
+                addNewWordDto.TranslateValue,
+                addNewWordDto.Type,
+                addNewWordDto.Level,
+                addNewWordDto.PronunciationUkMp3,
+                addNewWordDto.PhoneticsUk,
+                addNewWordDto.Examples);
 
+
+            return Ok(response);
+        }
+
+        [HttpPut("/UpdateWord")]
+        public async Task<IActionResult> UpdateWord([FromBody] UpdateWordDto updateWordDto)
+        {
+            var response = await wordService.UpdateWord(
+                updateWordDto.Id,
+                updateWordDto.Value,
+                updateWordDto.TranslateValue,
+                updateWordDto.Type,
+                updateWordDto.Level,
+                updateWordDto.PronunciationUkMp3,
+                updateWordDto.PhoneticsUk,
+                updateWordDto.Examples);
+
+            return Ok(response);
+        }
+
+        [HttpDelete("DeleteWord/{id}")]
+        public async Task<IActionResult> DeleteWord(int id)
+        {
+            var response = await wordService.DeleteWord(id);
             return Ok(response);
         }
     }
