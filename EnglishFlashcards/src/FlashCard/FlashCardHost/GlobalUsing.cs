@@ -7,4 +7,3 @@ global using FlashCard.Host.Data.InitialData;
 global using FlashCard.Host.Mappings;
 global using FlashCard.Host.Repositories;
 global using FlashCard.Host.Services;
-global using FlashCard.Host.Mappings;

@@ -1,5 +1,8 @@
 using Amazon.Runtime;
 using Amazon.Translate;
+using FlashCard.Host.Validators;
+using FluentValidation;
+using FluentValidation.AspNetCore;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,8 +24,15 @@ builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
 
 //Validators
+builder.Services.AddControllers(options =>
+{
+    options.Filters.Add<ValidationFilter>();
+});
 
-//builder.Services.AddValidatorsFromAssembly(assembly);
+builder.Services.AddFluentValidationAutoValidation()
+                .AddFluentValidationClientsideAdapters();
+
+builder.Services.AddValidatorsFromAssemblyContaining<WordDbModelValidator>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));

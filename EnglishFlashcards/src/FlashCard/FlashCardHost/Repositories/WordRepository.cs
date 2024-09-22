@@ -34,7 +34,7 @@ namespace FlashCard.Host.Repositories
                 .Where(x => x.Value.Contains(name))
                 .ToListAsync();
 
-            if (query is null) 
+            if (query.Count == 0) 
             {
                 throw new WordNotFoundException(name);
             }
