@@ -32,7 +32,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
-builder.Services.AddValidatorsFromAssemblyContaining<WordDbModelValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<AddNewWordDtoValidator>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
