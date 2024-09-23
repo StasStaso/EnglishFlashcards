@@ -33,6 +33,7 @@ builder.Services.AddFluentValidationAutoValidation()
                 .AddFluentValidationClientsideAdapters();
 
 builder.Services.AddValidatorsFromAssemblyContaining<AddNewWordDtoValidator>();
+builder.Services.AddValidatorsFromAssemblyContaining<UpdateWordDtoValidator>();
 
 //AutoMapper
 builder.Services.AddAutoMapper(typeof(MappingProfile));
