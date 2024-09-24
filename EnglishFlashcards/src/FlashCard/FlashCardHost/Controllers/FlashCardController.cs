@@ -13,5 +13,13 @@ namespace FlashCardHost.Controllers
 
             return Ok(response);
         }
+
+        [HttpGet("GetNewWord")]
+        public async Task<IActionResult> GetNewWord() 
+        {
+            var response = await flashCardService.GetRandomFlashCard();
+
+            return Ok(response);
+        }
     }
 }

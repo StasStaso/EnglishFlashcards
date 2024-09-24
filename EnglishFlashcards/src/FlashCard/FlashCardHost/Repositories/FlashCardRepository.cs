@@ -60,27 +60,37 @@ namespace FlashCard.Host.Repositories
             };
         }
 
-        public Task<FlashCardDto> GetRandomFlashCard()
+        public async Task<FlashCardDto> GetRandomFlashCard()
         {
-            throw new NotImplementedException();
+            var flashCards = await dbContext.FlashCards
+                .Where(x => x.StatusId == 1)
+                .Include(w => w.Word)
+                .Include(s => s.Status)
+                .ToListAsync();
+
+            if (flashCards == null || flashCards.Count == 0)
+            {
+                throw new FlashCardNotFoundException();
+            }
+
+            var random = new Random();
+            int randomIndex = random.Next(flashCards.Count);
+
+            var result = new FlashCardDto
+            {
+                Id = flashCards[randomIndex].Id,
+                Value = flashCards[randomIndex].Word.Value,
+                TranslateValue = flashCards[randomIndex].Word.TranslateValue,
+                Status = flashCards[randomIndex].Status.StatusName,
+                Type = flashCards[randomIndex].Word.Type,
+                Level = flashCards[randomIndex].Word.Level,
+                PronunciationUkMp3 = flashCards[randomIndex].Word.PronunciationUkMp3,
+                PhoneticsUk = flashCards[randomIndex].Word.PhoneticsUk,
+                Examples = flashCards[randomIndex].Word.Examples
+            };
+
+            return result;
         }
-
-        //public async Task<FlashCardDto> GetRandomFlashCard()
-        //{
-        //    var flashCards = await dbContext.FlashCards
-        //        .Where(x => x.StatusId == 1)
-        //        .ToListAsync();
-
-        //    if (flashCards == null || flashCards.Count == 0)
-        //    {
-        //        throw new FlashCardNotFoundException();
-        //    }
-
-        //    var random = new Random();
-        //    int randomIndex = random.Next(flashCards.Count);
-
-        //    return flashCards[randomIndex];
-        //}
 
         public Task<int> UpdateFlashCard(FlashCardModel model)
         {

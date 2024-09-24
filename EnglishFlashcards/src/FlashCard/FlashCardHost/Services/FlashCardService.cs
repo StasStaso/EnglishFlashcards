@@ -21,9 +21,10 @@ namespace FlashCard.Host.Services
             return result;
         }
 
-        public Task<FlashCardDto> GetRandomFlashCard()
+        public async Task<FlashCardDto> GetRandomFlashCard()
         {
-            throw new NotImplementedException();
+            var result = await flashCardRepository.GetRandomFlashCard();
+            return result;
         }
 
         public Task<int> UpdateFlashCard(FlashCardModel model)
