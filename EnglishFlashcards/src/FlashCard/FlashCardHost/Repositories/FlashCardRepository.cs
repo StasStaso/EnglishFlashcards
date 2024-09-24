@@ -37,6 +37,7 @@ namespace FlashCard.Host.Repositories
         {
             var flashCard = await dbContext.FlashCards
                 .Include(w => w.Word)
+                .Include(w => w.Status)
                 .FirstOrDefaultAsync(x => x.Id == id);
 
 
@@ -50,6 +51,7 @@ namespace FlashCard.Host.Repositories
                 Id = flashCard.Id,
                 Value = flashCard.Word.Value,
                 TranslateValue = flashCard.Word.TranslateValue,
+                Status = flashCard.Status.StatusName,
                 Type = flashCard.Word.Type,
                 Level = flashCard.Word.Level,
                 PronunciationUkMp3 = flashCard.Word.PronunciationUkMp3,

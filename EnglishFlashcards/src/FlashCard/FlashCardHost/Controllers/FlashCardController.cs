@@ -1,5 +1,4 @@
-﻿using FlashCard.Host.Services;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FlashCardHost.Controllers
 {
@@ -7,7 +6,7 @@ namespace FlashCardHost.Controllers
     [Route("api/flashcard")]
     public class FlashCardController(IFlashCardService flashCardService) : ControllerBase
     {
-        [HttpGet("flashcard/GetById/{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetById(int id)
         {
             var response = await flashCardService.GetFlashCardById(id);

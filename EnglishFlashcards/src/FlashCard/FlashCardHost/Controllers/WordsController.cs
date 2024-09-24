@@ -1,5 +1,4 @@
-﻿using FlashCard.Host.Dtos;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FlashCard.Host.Controllers
 {
@@ -7,7 +6,7 @@ namespace FlashCard.Host.Controllers
     [Route("api/words")]
     public class WordsController(IWordService wordService) : ControllerBase
     {
-        [HttpGet("/GetAll")]
+        [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll(int pageSize, int pageIndex)
         {
             var response = await wordService.GetAll(pageSize, pageIndex);
@@ -15,21 +14,21 @@ namespace FlashCard.Host.Controllers
             return Ok(response);
         }
 
-        [HttpGet("/GetById/{id}")]
+        [HttpGet("GetById/{id}")]
         public async Task<IActionResult> GetWordById(int id)
         {
             var response = await wordService.GetWordById(id);
             return Ok(response);
         }
 
-        [HttpGet("/GetByName/{name}")]
+        [HttpGet("GetByName/{name}")]
         public async Task<IActionResult> GetWordsByName(string name)
         {
             var response = await wordService.GetWordsByName(name);
             return Ok(response);
         }
 
-        [HttpPost("/AddNewWord")]
+        [HttpPost("AddNewWord")]
         public async Task<IActionResult> AddNewWord([FromBody] AddNewWordDto addNewWordDto)
         {
             var response = await wordService.AddNewWord(
@@ -45,7 +44,7 @@ namespace FlashCard.Host.Controllers
             return Ok(response);
         }
 
-        [HttpPut("/UpdateWord")]
+        [HttpPut("UpdateWord")]
         public async Task<IActionResult> UpdateWord([FromBody] UpdateWordDto updateWordDto)
         {
             var response = await wordService.UpdateWord(
