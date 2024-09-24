@@ -19,9 +19,11 @@ builder.Services.AddTransient<StatusInitialData>();
 builder.Services.AddTransient<FlashCardInitialData>();
 
 builder.Services.AddTransient<IWordRepository, WordRepository>();
+builder.Services.AddTransient<IFlashCardRepository, FlashCardRepository>();
 
 builder.Services.AddTransient<ITranslateService, TranslateService>();
 builder.Services.AddTransient<IWordService, WordService>();
+builder.Services.AddTransient<IFlashCardService, FlashCardService>();
 
 //Validators
 builder.Services.AddControllers(options =>

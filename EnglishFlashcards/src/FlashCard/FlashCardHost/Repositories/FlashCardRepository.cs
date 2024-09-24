@@ -33,34 +33,52 @@ namespace FlashCard.Host.Repositories
             return true;
         }
 
-        public async Task<FlashCardModel> GetFlashCardById(int id)
+        public async Task<FlashCardDto> GetFlashCardById(int id)
         {
-            var flashCard = await dbContext.FlashCards.FirstOrDefaultAsync(x => x.Id == id);
+            var flashCard = await dbContext.FlashCards
+                .Include(w => w.Word)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
 
             if (flashCard is null) 
             {
                 throw new FlashCardNotFoundException(id);
             }
 
-            return flashCard;
-        }
-
-        public async Task<FlashCardModel> GetRandomFlashCard()
-        {
-            var flashCards = await dbContext.FlashCards
-                .Where(x => x.StatusId == 1)
-                .ToListAsync();
-
-            if (flashCards == null || flashCards.Count == 0)
+            return new FlashCardDto
             {
-                throw new FlashCardNotFoundException();
-            }
-
-            var random = new Random();
-            int randomIndex = random.Next(flashCards.Count);
-            
-            return flashCards[randomIndex];
+                Id = flashCard.Id,
+                Value = flashCard.Word.Value,
+                TranslateValue = flashCard.Word.TranslateValue,
+                Type = flashCard.Word.Type,
+                Level = flashCard.Word.Level,
+                PronunciationUkMp3 = flashCard.Word.PronunciationUkMp3,
+                PhoneticsUk = flashCard.Word.PhoneticsUk,
+                Examples = flashCard.Word.Examples
+            };
         }
+
+        public Task<FlashCardDto> GetRandomFlashCard()
+        {
+            throw new NotImplementedException();
+        }
+
+        //public async Task<FlashCardDto> GetRandomFlashCard()
+        //{
+        //    var flashCards = await dbContext.FlashCards
+        //        .Where(x => x.StatusId == 1)
+        //        .ToListAsync();
+
+        //    if (flashCards == null || flashCards.Count == 0)
+        //    {
+        //        throw new FlashCardNotFoundException();
+        //    }
+
+        //    var random = new Random();
+        //    int randomIndex = random.Next(flashCards.Count);
+
+        //    return flashCards[randomIndex];
+        //}
 
         public Task<int> UpdateFlashCard(FlashCardModel model)
         {
