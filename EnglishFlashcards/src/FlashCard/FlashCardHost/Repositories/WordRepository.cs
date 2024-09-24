@@ -88,7 +88,7 @@ namespace FlashCard.Host.Repositories
 
         public async Task<bool> DeleteWord(int id) 
         {
-            var word = dbContext.Words.First(x => x.Id == id);
+            var word = await dbContext.Words.FirstAsync(x => x.Id == id);
 
             if(word is null) 
             {

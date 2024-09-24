@@ -21,4 +21,15 @@
         {
         }
     }
+
+    public class FlashCardNotFoundException : NotFoundException 
+    {
+        public FlashCardNotFoundException(int Id) : base("FlashCard", Id)
+        {   
+        }
+
+        public FlashCardNotFoundException() : base("FlashCard")
+        {
+        }
+    }
 }
