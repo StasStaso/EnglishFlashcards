@@ -2,10 +2,11 @@
 
 namespace FlashCard.Host.Validators
 {
-    public class WordDbModelValidator : AbstractValidator<WordDbModel>
+    public class UpdateWordDtoValidator : AbstractValidator<UpdateWordDto>
     {
-        public WordDbModelValidator()
+        public UpdateWordDtoValidator()
         {
+            RuleFor(x  => x.Id).NotEmpty().GreaterThan(0).WithMessage("The Id can`t be empty.");
             RuleFor(x => x.Value).NotEmpty().WithMessage("The Value can`t be empty.");
             RuleFor(x => x.TranslateValue).NotEmpty().WithMessage("The TranslateValue can`t be empty.");
         }

@@ -6,7 +6,7 @@
         {
         }
 
-        public NotFoundException(string name, object key) : base($"Entity {name} ({key}) was not found.") 
+        public NotFoundException(string name, object key) : base($"Entity |({name}) - ({key})| was not found.") 
         { 
         }
     }
@@ -18,6 +18,17 @@
         }
 
         public WordNotFoundException(string Name) : base("Word", Name) 
+        {
+        }
+    }
+
+    public class FlashCardNotFoundException : NotFoundException 
+    {
+        public FlashCardNotFoundException(int Id) : base("FlashCard", Id)
+        {   
+        }
+
+        public FlashCardNotFoundException() : base("FlashCard")
         {
         }
     }
