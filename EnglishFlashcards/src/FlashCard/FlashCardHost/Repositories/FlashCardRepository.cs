@@ -92,14 +92,40 @@ namespace FlashCard.Host.Repositories
             return result;
         }
 
-        public Task<int> UpdateFlashCard(FlashCardModel model)
+        public async Task<int> UpdateFlashCard(FlashCardModel model)
         {
-            throw new NotImplementedException();
+            var flashCard = await dbContext.FlashCards.FirstOrDefaultAsync(x => x.Id == model.Id);
+
+            if(flashCard is null) 
+            {
+                throw new NotFoundException("FlashCard", model.Id);
+            }
+
+            flashCard.Id = model.Id;
+            flashCard.WordId = model.WordId;
+            flashCard.StatusId = model.StatusId;
+
+            dbContext.FlashCards.Update(flashCard);
+            await dbContext.SaveChangesAsync();
+
+            return flashCard.Id;
         }
 
-        public Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
+        public async Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
         {
-            throw new NotImplementedException();
+            var flashCard = dbContext.FlashCards.FirstOrDefault(x => x.Id == flashCardId);
+
+            if (flashCard is null)
+            {
+                throw new NotFoundException("FlashCard", flashCardId);
+            }
+
+            flashCard.StatusId = statusId;
+
+            dbContext.FlashCards.Update(flashCard) ;
+            await dbContext.SaveChangesAsync();
+
+            return flashCard.Id;
         }
     }
 }
