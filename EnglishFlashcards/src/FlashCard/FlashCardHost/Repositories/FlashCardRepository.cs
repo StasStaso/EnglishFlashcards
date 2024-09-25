@@ -4,7 +4,7 @@ namespace FlashCard.Host.Repositories
 {
     public class FlashCardRepository(ApplicationDbContext dbContext) : IFlashCardRepository
     {
-        public async Task<int> AddFlashCard(FlashCardModel model)
+        public async Task<int> AddFlashCard(AddNewFlashCardDto model)
         {
             var flashCard = new FlashCardModel
             {
@@ -92,14 +92,20 @@ namespace FlashCard.Host.Repositories
             return result;
         }
 
-        public Task<int> UpdateFlashCard(FlashCardModel model)
+        public async Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
         {
-            throw new NotImplementedException();
-        }
+            var flashCard = await dbContext.FlashCards.FirstOrDefaultAsync(x => x.Id == flashCardId);
 
-        public Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
-        {
-            throw new NotImplementedException();
+            if (flashCard is null)
+            {
+                throw new NotFoundException("FlashCard", flashCardId);
+            }
+
+            flashCard.StatusId = statusId;
+            
+            await dbContext.SaveChangesAsync();
+
+            return flashCard.Id;
         }
     }
 }
