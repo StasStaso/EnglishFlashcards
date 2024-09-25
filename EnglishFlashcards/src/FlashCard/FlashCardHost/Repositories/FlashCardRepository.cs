@@ -4,7 +4,7 @@ namespace FlashCard.Host.Repositories
 {
     public class FlashCardRepository(ApplicationDbContext dbContext) : IFlashCardRepository
     {
-        public async Task<int> AddFlashCard(FlashCardModel model)
+        public async Task<int> AddFlashCard(AddNewFlashCardDto model)
         {
             var flashCard = new FlashCardModel
             {
@@ -92,28 +92,9 @@ namespace FlashCard.Host.Repositories
             return result;
         }
 
-        public async Task<int> UpdateFlashCard(FlashCardModel model)
-        {
-            var flashCard = await dbContext.FlashCards.FirstOrDefaultAsync(x => x.Id == model.Id);
-
-            if(flashCard is null) 
-            {
-                throw new NotFoundException("FlashCard", model.Id);
-            }
-
-            flashCard.Id = model.Id;
-            flashCard.WordId = model.WordId;
-            flashCard.StatusId = model.StatusId;
-
-            dbContext.FlashCards.Update(flashCard);
-            await dbContext.SaveChangesAsync();
-
-            return flashCard.Id;
-        }
-
         public async Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
         {
-            var flashCard = dbContext.FlashCards.FirstOrDefault(x => x.Id == flashCardId);
+            var flashCard = await dbContext.FlashCards.FirstOrDefaultAsync(x => x.Id == flashCardId);
 
             if (flashCard is null)
             {
@@ -121,8 +102,7 @@ namespace FlashCard.Host.Repositories
             }
 
             flashCard.StatusId = statusId;
-
-            dbContext.FlashCards.Update(flashCard) ;
+            
             await dbContext.SaveChangesAsync();
 
             return flashCard.Id;

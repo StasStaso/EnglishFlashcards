@@ -15,7 +15,7 @@ namespace FlashCard.Host.Services
             return result;
         }
 
-        public async Task<int> AddFlashCard(FlashCardModel model)
+        public async Task<int> AddFlashCard(AddNewFlashCardDto model)
         {
             var result = await flashCardRepository.AddFlashCard(model);
             return result;
@@ -27,15 +27,9 @@ namespace FlashCard.Host.Services
             return result;
         }
 
-        public async Task<int> UpdateFlashCard(FlashCardModel model)
-        {
-            var result = await flashCardRepository.UpdateFlashCard(model);
-            return result;
-        }
-
         public async Task<int> UpdateFlashCardStatus(int flashCardId, int statusId)
         {
-            var result = await UpdateFlashCardStatus(flashCardId, statusId);
+            var result = await flashCardRepository.UpdateFlashCardStatus(flashCardId, statusId);
             return result;
         }
     }

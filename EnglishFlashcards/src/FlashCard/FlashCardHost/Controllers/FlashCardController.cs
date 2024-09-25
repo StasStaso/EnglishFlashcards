@@ -23,7 +23,7 @@ namespace FlashCardHost.Controllers
         }
 
         [HttpPost("AddNewFlashCard")]
-        public async Task<IActionResult> AddNewFlashCard(FlashCardModel model) 
+        public async Task<IActionResult> AddNewFlashCard(AddNewFlashCardDto model) 
         {
             var response = await flashCardService.AddFlashCard(model);
 
@@ -38,15 +38,7 @@ namespace FlashCardHost.Controllers
             return Ok(response);
         }
 
-        [HttpPut("UpdateFlashCard")]
-        public async Task<IActionResult> UpdateFlashCard(FlashCardModel model) 
-        {
-            var response = await flashCardService.UpdateFlashCard(model);
-
-            return Ok(response);
-        }
-
-        [HttpPut("UpdateFlashCardStatus/{flashCardId}/{statusId}")]
+        [HttpPut("UpdateFlashCardStatus/{flashCardId}")]
         public async Task<IActionResult> UpdateFlashCardStatus(int flashCardId, int statusId) 
         {
             var response = await flashCardService.UpdateFlashCardStatus(flashCardId, statusId);
